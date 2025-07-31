@@ -3,7 +3,7 @@ loaderVersion="[47,)"  # Для Forge 1.20.1
 license="MIT"
 [[mods]]
 modId="voicedebuffmod"
-version="${file.jarVersion}"
+version="1.0"
 displayName="Voice Debuff Mod"
-description="off voice"
-authors="ifrit"
+authors="YourName"
+description="Mutes players when they have debuffs"
