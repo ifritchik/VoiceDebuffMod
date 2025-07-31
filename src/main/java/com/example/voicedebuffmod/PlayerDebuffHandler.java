@@ -13,7 +13,7 @@ public class PlayerDebuffHandler {
     private static final Set<MobEffect> BLOCKED_EFFECTS = new HashSet<>();
 
     static {
-        // Р”РµР±Р°С„С„С‹ РёР· РєРѕРЅС„РёРіР°
+        // Дебаффы из конфига
         if (Config.WEAKNESS.get()) BLOCKED_EFFECTS.add(MobEffects.WEAKNESS);
         if (Config.BLINDNESS.get()) BLOCKED_EFFECTS.add(MobEffects.BLINDNESS);
         if (Config.DARKNESS.get()) BLOCKED_EFFECTS.add(MobEffects.DARKNESS);
@@ -27,13 +27,13 @@ public class PlayerDebuffHandler {
         boolean shouldMute = BLOCKED_EFFECTS.stream().anyMatch(player::hasEffect);
 
         if (shouldMute) {
-            // Р›РѕРіРёРєР° РѕС‚РєР»СЋС‡РµРЅРёСЏ РіРѕР»РѕСЃР° (РїСЂРёРјРµСЂ РґР»СЏ Simple Voice Chat API)
+            // Логика отключения голоса (пример для Simple Voice Chat API)
             try {
                 Class<?> apiClass = Class.forName("de.maxhenkel.voicechat.api.ForgeVoicechatApi");
                 Object api = apiClass.getMethod("getInstance").invoke(null);
                 apiClass.getMethod("mutePlayer", java.util.UUID.class).invoke(api, player.getUUID());
             } catch (Exception e) {
-                System.err.println("РќРµ СѓРґР°Р»РѕСЃСЊ РѕС‚РєР»СЋС‡РёС‚СЊ РіРѕР»РѕСЃ: " + e.getMessage());
+                System.err.println("Не удалось отключить голос: " + e.getMessage());
             }
         }
     }
