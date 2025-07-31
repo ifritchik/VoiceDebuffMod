@@ -1,0 +1,58 @@
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '5.1.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+}
+
+version = '1.0'
+group = 'com.example.voicedebuffmod'
+archivesBaseName = 'voicedebuffmod'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'parchment', version: '2023.09.03-1.20.1' // Актуальные маппинги для 1.20.1
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                voicedebuffmod {
+                    source sourceSets.main
+                }
+            }
+        }
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                voicedebuffmod {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.1.0' // Версия Forge для 1.20.1
+    // Если нужен Simple Voice Chat API (раскомментируйте):
+    // implementation fg.deobf("de.maxhenkel.voicechat:voicechat-api:2.4.0")
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title"     : "voicedebuffmod",
+            "Specification-Vendor"   : "example",
+            "Specification-Version"   : "1",
+            "Implementation-Title"    : project.name,
+            "Implementation-Version"  : project.jar.archiveVersion,
+            "Implementation-Vendor"   : "example",
+            "FMLModType"             : "MOD"
+        ])
+    }
+}
