@@ -1,21 +1,11 @@
-name: Build Mod
-on: [push]
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: 17
-          distribution: 'temurin'
-      - name: Fix permissions  # Добавьте этот шаг!
-        run: chmod +x gradlew
-      - name: Build with Gradle
-        run: ./gradlew build --stacktrace
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: VoiceDebuffMod
-          path: build/libs/*.jar
+steps:
+  - uses: actions/checkout@v4
+  - name: Set up JDK 17
+    uses: actions/setup-java@v3
+    with:
+      java-version: 17
+      distribution: temurin
+  - name: Fix permissions
+    run: chmod +x gradlew
+  - name: Build with Gradle
+    run: ./gradlew build --stacktrace --info
